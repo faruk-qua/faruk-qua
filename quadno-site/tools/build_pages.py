@@ -54,7 +54,7 @@ def page(en):
 <link rel="alternate" hreflang="tr" href="{base}index.html"><link rel="alternate" hreflang="en" href="{base}en/index.html"><link rel="icon" href="{assets}quadno.svg" type="image/svg+xml">
 <link rel="preload" href="{assets}manrope.woff" as="font" type="font/woff" crossorigin><link rel="stylesheet" href="{assets}site.css"><script src="{assets}site.js" defer></script><script src="{assets}contact.js" defer></script></head>
 <body id="top"><a class="skip" href="#main">{t('İçeriğe geç','Skip to content')}</a>
-<header><div class="wrap head"><a class="home" href="#top" aria-label="{t('Quadno ana sayfa','Quadno home')}"><img src="{assets}quadno-header.svg" width="122" height="53" alt="Quadno"></a>
+<header><div class="wrap head"><a class="home" href="#top" aria-label="{t('Quadno ana sayfa','Quadno home')}"><img src="{assets}quadno-header.svg" class="header-logo" width="56" height="56" alt="Quadno"></a>
 <nav id="nav" aria-label="{t('Ana menü','Main navigation')}">{navlinks}</nav>
 <a class="language" hreflang="{t('en','tr')}" href="{switch}" aria-label="{t('Switch to English','Türkçe sürüme geç')}"><svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg> {t('EN','TR')}</a>
 <a class="nav-contact" href="#contact">{t('İletişim','Contact')} {DIAGONAL}</a><button class="menu" id="menu" type="button" aria-label="{t('Menü','Menu')}" aria-controls="nav" aria-expanded="false"><span></span><span></span></button></div></header>
