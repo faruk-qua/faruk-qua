@@ -1,4 +1,4 @@
-// Cloudflare Pages advanced mode. Set the four bindings in the Pages dashboard.
+// Cloudflare Pages advanced mode. Set the three bindings in the Pages dashboard.
 const RECIPIENT = 'admin@quadno.com';
 const SENDER = 'form@bildirim.quadno.com';
 const PRODUCTS = new Map([
@@ -10,7 +10,7 @@ function json(data, status = 200, extra = {}) {
   return Response.json(data, {status, headers: {'Cache-Control': 'no-store', ...extra}});
 }
 function configured(env) {
-  return Boolean(env.MAIL_ACCOUNT_ID && env.MAIL_API_TOKEN && env.TURNSTILE_SITE_KEY && env.TURNSTILE_SECRET_KEY);
+  return Boolean(env.RESEND_API_KEY && env.TURNSTILE_SITE_KEY && env.TURNSTILE_SECRET_KEY);
 }
 async function readPayload(request) {
   if (Number(request.headers.get('content-length')) > MAX_BYTES || !request.body) return null;
@@ -63,8 +63,8 @@ export default {
 
     const product = PRODUCTS.get(data.product);
     try {
-      const response = await fetch('https://api.cloudflare.com/client/v4/accounts/'+encodeURIComponent(env.MAIL_ACCOUNT_ID)+'/email/sending/send', {
-        method:'POST', headers:{Authorization:'Bearer '+env.MAIL_API_TOKEN, 'Content-Type':'application/json'},
+      const response = await fetch('https://api.resend.com/emails', {
+        method:'POST', headers:{Authorization:'Bearer '+env.RESEND_API_KEY, 'Content-Type':'application/json'},
         signal:AbortSignal.timeout(15000),
         body:JSON.stringify({
           from:SENDER, to:[RECIPIENT], reply_to:data.email, subject:'Quadno web | '+product,
@@ -72,10 +72,7 @@ export default {
         })
       });
       const payload = await response.json();
-      const result = payload?.result;
-      const includesRecipient = list => Array.isArray(list) && list.some(address => String(address).toLowerCase() === RECIPIENT);
-      if (!response.ok || !payload.success || !result || includesRecipient(result.permanent_bounces)
-          || includesRecipient(result.suppressed_recipients) || !(includesRecipient(result.delivered) || includesRecipient(result.queued)))
+      if (!response.ok || typeof payload?.id !== 'string' || !payload.id.trim())
         return json({error:'delivery'}, 502);
       return json({accepted:true}, 202);
     } catch { return json({error:'delivery'}, 502); }
