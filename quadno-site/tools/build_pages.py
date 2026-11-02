@@ -51,10 +51,10 @@ def page(en):
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{title}</title><meta name="description" content="{desc}">
 <!-- Resort photograph: Mikhail Nilov / Pexels, photo 9400988. Lobby photograph: Pexels, photo 8918652. Used under the Pexels License. -->
 <meta name="theme-color" content="#092934"><meta property="og:title" content="{title}"><meta property="og:description" content="{desc}"><meta property="og:type" content="website">
-<link rel="alternate" hreflang="tr" href="{base}index.html"><link rel="alternate" hreflang="en" href="{base}en/index.html"><link rel="icon" href="{assets}quadno-mark.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="tr" href="{base}index.html"><link rel="alternate" hreflang="en" href="{base}en/index.html"><link rel="icon" href="{assets}quadno.svg" type="image/svg+xml">
 <link rel="preload" href="{assets}manrope.woff" as="font" type="font/woff" crossorigin><link rel="stylesheet" href="{assets}site.css"><script src="{assets}site.js" defer></script><script src="{assets}contact.js" defer></script></head>
 <body id="top"><a class="skip" href="#main">{t('İçeriğe geç','Skip to content')}</a>
-<header><div class="wrap head"><a class="home" href="#top" aria-label="{t('Quadno ana sayfa','Quadno home')}"><img src="{assets}quadno-word.svg" width="112" height="35" alt="quadno"></a>
+<header><div class="wrap head"><a class="home" href="#top" aria-label="{t('Quadno ana sayfa','Quadno home')}"><img class="brand-symbol" src="{assets}quadno.svg" width="40" height="40" alt=""><img src="{assets}quadno-word.svg" width="112" height="35" alt="quadno"></a>
 <nav id="nav" aria-label="{t('Ana menü','Main navigation')}">{navlinks}</nav>
 <a class="language" hreflang="{t('en','tr')}" href="{switch}" aria-label="{t('Switch to English','Türkçe sürüme geç')}"><svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg> {t('EN','TR')}</a>
 <a class="nav-contact" href="#contact">{t('İletişim','Contact')} {DIAGONAL}</a><button class="menu" id="menu" type="button" aria-label="{t('Menü','Menu')}" aria-controls="nav" aria-expanded="false"><span></span><span></span></button></div></header>
@@ -62,7 +62,7 @@ def page(en):
 <section class="hero" aria-labelledby="hero-title"><picture><source media="(max-width:620px)" srcset="{assets}resort-mobile.webp"><img src="{assets}resort.webp" width="1700" height="950" alt="" fetchpriority="high"></picture><div class="hero-shade"></div><div class="wrap hero-content">
   <div class="hero-copy"><div class="hero-kicker"><span></span>{t('QUBI AI · OTEL ANALİZİ','QUBI AI · HOTEL ANALYTICS')}</div>
   <h1 id="hero-title">{t('Otelinizde bugün','What changed at')}<br><em>{t('ne değişti?','your hotel today?')}</em></h1>
-  <p>{t('QUBI AI ile haftanın en yüksek gelirli gününü bulun. Oteli veya haftayı değiştirip yanıtın hangi rakamlara dayandığını görün.','Find the strongest revenue day with QUBI AI. Switch hotels or weeks to see the numbers behind the answer.')}</p>
+  <p>{t('Otel verileriniz kurumunuzda kalır. QUBI AI, sorunuzu yerel dil modeliyle yorumlar. Gelir, doluluk ve satış kanalı analizlerini örnek verilerle keşfedin.','Your hotel data stays in your environment. QUBI AI interprets questions with a local language model. Explore revenue, occupancy and channel analysis with sample data.')}</p>
   <div class="hero-actions"><a class="btn primary" data-open-ai href="#platform">{PLAY} {t('QUBI AI’ı deneyin','Try QUBI AI')}</a><a class="hero-link" href="#products">{t('Ürünlerimiz','Our products')} {ARROW}</a></div></div>
   <div class="hero-stat" aria-label="{t('Örnek portföy göstergesi','Sample portfolio indicator')}"><div><span class="mini-dot"></span>{t('ÖRNEK PORTFÖY','SAMPLE PORTFOLIO')}</div><p>{t('Haftalık doluluk','Weekly occupancy')}</p><div class="hero-stat-value"><b id="hero-value">{t("%81,6","81.6%")}</b><svg viewBox="0 0 112 39" aria-hidden="true"><path id="hero-line" d="M2 32L19 28 37 30 55 20 73 22 91 9 109 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/></svg></div><small id="hero-delta">{t("+4,5 puan · önceki haftaya göre","+4.5 pp · vs previous week")}</small></div>
   <div class="hero-foot"><span>QUADNO <i></i> HOSPITALITY INTELLIGENCE</span><a href="#platform" aria-label="{t('Platforma ilerle','Go to platform')}">↓</a></div>
@@ -81,6 +81,16 @@ def page(en):
 <div id="ai-body"><div class="ai-questions"><div class="kicker">QUBI AI</div><h3>{t('Yönetim soruları','Management questions')}</h3><p>{t('Seçtiğiniz dönem ve otel üzerinden ilerleyin.','Explore your selected period and property.')}</p><div id="prompts"></div></div><div class="ai-answer" aria-live="polite" id="ai-answer"></div></div>
 <div class="console-foot"><span class="mini-dot"></span>{t('Demo ortamı · Kurgusal veriler · Ekim 2026','Demo workspace · Fictional data · October 2026')}</div><noscript><p>{t('Etkileşimli demo için JavaScript’i etkinleştirin.','Enable JavaScript to use the interactive demo.')}</p></noscript></div>
 </section>
+<section class="local-ai" aria-labelledby="local-title"><div class="wrap section">
+<div class="kicker">QUBI AI · {t('YEREL DİL MODELİ','LOCAL LANGUAGE MODEL')}</div>
+<h2 id="local-title">{t('Sorunuzdan rapora, kendi altyapınızda.','From question to report, on your infrastructure.')}</h2>
+<p class="local-intro">{t('QUBI AI, otel verilerini analiz etmek için buluttaki bir yapay zekâ servisine açmaz. Soruyu yorumlayan dil modeli kurumun kendi ortamında çalışır. Raporun rakamlarını ise QUBI veri modeli hesaplar.','QUBI AI analyses hotel data without sending it to a cloud AI service. The language model that interprets the question runs in your own environment. The QUBI data model calculates the figures in the report.')}</p>
+<div class="local-steps">
+<article><span>01</span><h3>{t('Soruyu yorumlar','Interpret the question')}</h3><p>{t('“Ekim ayında otel bazında kaç oda gecesi sattık?” sorusunda yerel model, ölçü olarak satılan oda gecesini, gruplama olarak oteli ve dönem olarak ekim ayını belirler.','For “How many room nights did we sell at each hotel in October?”, the local model identifies room nights as the measure, hotel as the grouping and October as the period.')}</p></article>
+<article><span>02</span><h3>{t('Yetkili veriyi sorgular','Query authorised data')}</h3><p>{t('Bu seçimler QUBI raporlama modeline uygulanır. Sorgu, kullanıcının erişebildiği rapor ve otel kapsamındaki verilerle çalışır. Gelir ve doluluk gibi ölçüler mevcut rapor tanımlarına göre hesaplanır.','QUBI applies these selections to its reporting model. The query runs within the reports and properties the user can access. Measures such as revenue and occupancy follow the definitions used in existing reports.')}</p></article>
+<article><span>03</span><h3>{t('Sonucu bağlamıyla gösterir','Read the result in context')}</h3><p>{t('Otel bazındaki sonuçları seçtiğiniz dönemle birlikte inceleyebilirsiniz. Bir değişimi araştırırken aynı ölçüyü önceki dönemle karşılaştırabilir veya satış kanalı bazında yeniden sorabilirsiniz.','Read the results by property alongside the selected period. To investigate a change, compare the same measure with an earlier period or ask for a breakdown by sales channel.')}</p></article>
+</div><p class="local-note">{t('Sitedeki demo, kurgusal otel verileriyle tarayıcınızda çalışır. Örnek soruların yanıtlarını görmek için oteli veya haftayı değiştirin.','The website demo runs in your browser using fictional hotel data. Change the property or week to explore answers to the sample questions.')}</p>
+</div></section>
 <section class="products-section" id="products"><div class="wrap section"><div class="section-lead"><div><div class="kicker"><b>02</b><i></i>{t('ÜRÜN AİLESİ','PRODUCT SUITE')}</div><h2>{t('Tasarım, analiz ve operasyon.','Design, analysis and operations.')}</h2></div><p>{t('Raporu hazırlayan analistten onu sabah toplantısında kullanan yöneticiye, her rol için farklı bir araç.','From the analyst building a report to the manager using it at a morning briefing, each role has a different tool.')}</p></div><div class="cards">{''.join(cards)}</div></div></section>
 <section class="company section wrap" id="company"><figure><img src="{assets}lobby.webp" width="900" height="700" alt="{t('Aydınlatılmış resepsiyon ve otel lobisi','A softly lit hotel lobby and reception area')}" loading="lazy"></figure>
 <div class="company-copy"><div class="kicker"><b>03</b><i></i>{t('QUADNO HAKKINDA','ABOUT QUADNO')}</div><h2>{t('Otelin çalışma biçiminden yola çıkıyoruz.','Software shaped by the way hotels work.')}</h2>
@@ -103,7 +113,7 @@ def page(en):
 <button type="submit" class="btn primary" id="enquiry-submit" disabled><span>{t('Gönder','Send message')}</span>{ARROW}</button>
 <noscript><p>{t('Form için JavaScript’i etkinleştirin veya doğrudan e-posta gönderin.','Enable JavaScript to use the form, or email us directly.')}</p></noscript>
 </form></div></section>
-</main><footer><div class="wrap footer-inner"><img src="{assets}quadno-mark.svg" alt="Quadno" width="42" height="42"><span>© 2026 Quadno Teknoloji A.Ş.</span><a href="#top">{t('Başa dön','Back to top')} ↑</a></div></footer>
+</main><footer><div class="wrap footer-inner"><img src="{assets}quadno.svg" alt="Quadno" width="42" height="42"><span>© 2026 Quadno Teknoloji A.Ş.</span><a href="#top">{t('Başa dön','Back to top')} ↑</a></div></footer>
 {''.join(dialogs)}</body></html>'''
 
 for en in (False,True):

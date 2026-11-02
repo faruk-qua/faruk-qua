@@ -3,10 +3,10 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Quadno Teknoloji | Otelcilik için iş zekâsı</title><meta name="description" content="QUBI ile doluluk, oda geliri, ortalama oda fiyatı ve satış kanallarını inceleyin. Quadno’nun otelcilik yazılımlarını etkileşimli örnek verilerle keşfedin.">
 <!-- Resort photograph: Mikhail Nilov / Pexels, photo 9400988. Lobby photograph: Pexels, photo 8918652. Used under the Pexels License. -->
 <meta name="theme-color" content="#092934"><meta property="og:title" content="Quadno Teknoloji | Otelcilik için iş zekâsı"><meta property="og:description" content="QUBI ile doluluk, oda geliri, ortalama oda fiyatı ve satış kanallarını inceleyin. Quadno’nun otelcilik yazılımlarını etkileşimli örnek verilerle keşfedin."><meta property="og:type" content="website">
-<link rel="alternate" hreflang="tr" href="index.html"><link rel="alternate" hreflang="en" href="en/index.html"><link rel="icon" href="assets/quadno-mark.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="tr" href="index.html"><link rel="alternate" hreflang="en" href="en/index.html"><link rel="icon" href="assets/quadno.svg" type="image/svg+xml">
 <link rel="preload" href="assets/manrope.woff" as="font" type="font/woff" crossorigin><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script><script src="assets/contact.js" defer></script></head>
 <body id="top"><a class="skip" href="#main">İçeriğe geç</a>
-<header><div class="wrap head"><a class="home" href="#top" aria-label="Quadno ana sayfa"><img src="assets/quadno-word.svg" width="112" height="35" alt="quadno"></a>
+<header><div class="wrap head"><a class="home" href="#top" aria-label="Quadno ana sayfa"><img class="brand-symbol" src="assets/quadno.svg" width="40" height="40" alt=""><img src="assets/quadno-word.svg" width="112" height="35" alt="quadno"></a>
 <nav id="nav" aria-label="Ana menü"><a href="#platform">QUBI AI</a><a href="#products">Ürünler</a><a href="#company">Şirket</a></nav>
 <a class="language" hreflang="en" href="en/index.html" aria-label="Switch to English"><svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg> EN</a>
 <a class="nav-contact" href="#contact">İletişim <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 18 18 6M7 6h11v11"/></svg></a><button class="menu" id="menu" type="button" aria-label="Menü" aria-controls="nav" aria-expanded="false"><span></span><span></span></button></div></header>
@@ -14,7 +14,7 @@
 <section class="hero" aria-labelledby="hero-title"><picture><source media="(max-width:620px)" srcset="assets/resort-mobile.webp"><img src="assets/resort.webp" width="1700" height="950" alt="" fetchpriority="high"></picture><div class="hero-shade"></div><div class="wrap hero-content">
   <div class="hero-copy"><div class="hero-kicker"><span></span>QUBI AI · OTEL ANALİZİ</div>
   <h1 id="hero-title">Otelinizde bugün<br><em>ne değişti?</em></h1>
-  <p>QUBI AI ile haftanın en yüksek gelirli gününü bulun. Oteli veya haftayı değiştirip yanıtın hangi rakamlara dayandığını görün.</p>
+  <p>Otel verileriniz kurumunuzda kalır. QUBI AI, sorunuzu yerel dil modeliyle yorumlar. Gelir, doluluk ve satış kanalı analizlerini örnek verilerle keşfedin.</p>
   <div class="hero-actions"><a class="btn primary" data-open-ai href="#platform"><svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m10 8 6 4-6 4z" fill="currentColor" stroke="none"/></svg> QUBI AI’ı deneyin</a><a class="hero-link" href="#products">Ürünlerimiz <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a></div></div>
   <div class="hero-stat" aria-label="Örnek portföy göstergesi"><div><span class="mini-dot"></span>ÖRNEK PORTFÖY</div><p>Haftalık doluluk</p><div class="hero-stat-value"><b id="hero-value">%81,6</b><svg viewBox="0 0 112 39" aria-hidden="true"><path id="hero-line" d="M2 32L19 28 37 30 55 20 73 22 91 9 109 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/></svg></div><small id="hero-delta">+4,5 puan · önceki haftaya göre</small></div>
   <div class="hero-foot"><span>QUADNO <i></i> HOSPITALITY INTELLIGENCE</span><a href="#platform" aria-label="Platforma ilerle">↓</a></div>
@@ -33,6 +33,16 @@
 <div id="ai-body"><div class="ai-questions"><div class="kicker">QUBI AI</div><h3>Yönetim soruları</h3><p>Seçtiğiniz dönem ve otel üzerinden ilerleyin.</p><div id="prompts"></div></div><div class="ai-answer" aria-live="polite" id="ai-answer"></div></div>
 <div class="console-foot"><span class="mini-dot"></span>Demo ortamı · Kurgusal veriler · Ekim 2026</div><noscript><p>Etkileşimli demo için JavaScript’i etkinleştirin.</p></noscript></div>
 </section>
+<section class="local-ai" aria-labelledby="local-title"><div class="wrap section">
+<div class="kicker">QUBI AI · YEREL DİL MODELİ</div>
+<h2 id="local-title">Sorunuzdan rapora, kendi altyapınızda.</h2>
+<p class="local-intro">QUBI AI, otel verilerini analiz etmek için buluttaki bir yapay zekâ servisine açmaz. Soruyu yorumlayan dil modeli kurumun kendi ortamında çalışır. Raporun rakamlarını ise QUBI veri modeli hesaplar.</p>
+<div class="local-steps">
+<article><span>01</span><h3>Soruyu yorumlar</h3><p>“Ekim ayında otel bazında kaç oda gecesi sattık?” sorusunda yerel model, ölçü olarak satılan oda gecesini, gruplama olarak oteli ve dönem olarak ekim ayını belirler.</p></article>
+<article><span>02</span><h3>Yetkili veriyi sorgular</h3><p>Bu seçimler QUBI raporlama modeline uygulanır. Sorgu, kullanıcının erişebildiği rapor ve otel kapsamındaki verilerle çalışır. Gelir ve doluluk gibi ölçüler mevcut rapor tanımlarına göre hesaplanır.</p></article>
+<article><span>03</span><h3>Sonucu bağlamıyla gösterir</h3><p>Otel bazındaki sonuçları seçtiğiniz dönemle birlikte inceleyebilirsiniz. Bir değişimi araştırırken aynı ölçüyü önceki dönemle karşılaştırabilir veya satış kanalı bazında yeniden sorabilirsiniz.</p></article>
+</div><p class="local-note">Sitedeki demo, kurgusal otel verileriyle tarayıcınızda çalışır. Örnek soruların yanıtlarını görmek için oteli veya haftayı değiştirin.</p>
+</div></section>
 <section class="products-section" id="products"><div class="wrap section"><div class="section-lead"><div><div class="kicker"><b>02</b><i></i>ÜRÜN AİLESİ</div><h2>Tasarım, analiz ve operasyon.</h2></div><p>Raporu hazırlayan analistten onu sabah toplantısında kullanan yöneticiye, her rol için farklı bir araç.</p></div><div class="cards"><article class="product-card">
           <div class="card-art"><img src="assets/designer-art.svg" loading="lazy" width="410" height="174" alt=""><span class="card-no">Q / 01</span></div>
           <div class="card-info"><div class="card-eyebrow"><img src="assets/qubi-designer.svg" width="36" height="36" alt=""><span>Rapor tasarımı</span></div>
@@ -64,7 +74,7 @@
 <button type="submit" class="btn primary" id="enquiry-submit" disabled><span>Gönder</span><svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></button>
 <noscript><p>Form için JavaScript’i etkinleştirin veya doğrudan e-posta gönderin.</p></noscript>
 </form></div></section>
-</main><footer><div class="wrap footer-inner"><img src="assets/quadno-mark.svg" alt="Quadno" width="42" height="42"><span>© 2026 Quadno Teknoloji A.Ş.</span><a href="#top">Başa dön ↑</a></div></footer>
+</main><footer><div class="wrap footer-inner"><img src="assets/quadno.svg" alt="Quadno" width="42" height="42"><span>© 2026 Quadno Teknoloji A.Ş.</span><a href="#top">Başa dön ↑</a></div></footer>
 <dialog id="dialog-designer" aria-labelledby="dialog-title-designer">
           <div class="dialog-bar"><span class="kicker">Ürün dosyası / 01</span><button class="close" type="button" data-close aria-label="Kapat">×</button></div>
           <img class="dialog-logo" src="assets/qubi-designer.svg" width="54" height="54" alt=""><h2 id="dialog-title-designer">QUBI Designer</h2><p class="dialog-intro">Yöneticinin sorusunu yanıtlayan panoyu oluşturun. Göstergeleri, grafikleri ve filtreleri aynı raporda düzenleyin.</p>

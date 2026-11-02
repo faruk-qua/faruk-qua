@@ -34,3 +34,6 @@ dialog{border:1px solid #c5d5d0;border-radius:10px;padding:25px;max-height:min(8
 .enquiry .btn{justify-self:start;background:#124848;color:#f6fff9;padding:12px 17px}.enquiry .btn:hover{background:#19615a}.enquiry .btn:disabled{cursor:wait;background:#dce7e1;color:#4b625a;transform:none}
 @media(max-width:700px){.contact-inner{grid-template-columns:1fr;gap:25px}.enquiry{padding:18px;gap:12px}.enquiry input,.enquiry select,.enquiry textarea{font-size:16px}}
 @media(max-width:460px){.enquiry-row{grid-template-columns:1fr}}
+
+.home{gap:8px}.home img,.footer-inner img{filter:brightness(0) invert(1)}.home .brand-symbol{width:36px;height:36px}
+.local-ai{background:#eaf3ee;color:#0e3336}.local-ai h2{font-size:clamp(2rem,4vw,3.6rem);line-height:1.08;max-width:20ch;margin:18px 0}.local-intro{max-width:72ch;line-height:1.7}.local-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin:34px 0}.local-steps article{border-top:1px solid #94b4a7;padding-top:16px}.local-steps span{color:#326d56;font-weight:700}.local-steps h3{margin:12px 0}.local-steps p,.local-note{line-height:1.65}.local-note{font-size:.9rem;max-width:80ch}@media(max-width:760px){.local-steps{grid-template-columns:1fr;gap:15px}.home .brand-symbol{width:28px;height:28px}.home{gap:5px}}
