@@ -31,7 +31,7 @@ def page(en):
     lang=t('tr','en')
     switch='../index.html' if en else 'en/index.html'
     email='admin@quadno.com'
-    nav=[('platform',t('QUBI Platformu','QUBI Platform')),('products',t('Ürünler','Products')),('company',t('Şirket','Company'))]
+    nav=[('platform','QUBI AI'),('products',t('Ürünler','Products')),('company',t('Şirket','Company'))]
     navlinks=''.join(f'<a href="#{i}">{n}</a>' for i,n in nav)
     cards=[]; dialogs=[]
     for i,(key,name,logo,category,description,sections) in enumerate(PRODUCTS,1):
@@ -51,7 +51,7 @@ def page(en):
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{title}</title><meta name="description" content="{desc}">
 <!-- Resort photograph: Mikhail Nilov / Pexels, photo 9400988. Lobby photograph: Pexels, photo 8918652. Used under the Pexels License. -->
 <meta name="theme-color" content="#092934"><meta property="og:title" content="{title}"><meta property="og:description" content="{desc}"><meta property="og:type" content="website">
-<link rel="alternate" hreflang="tr" href="{base}index.html"><link rel="alternate" hreflang="en" href="{base}en/index.html"><link rel="icon" href="{assets}quadno.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="tr" href="{base}index.html"><link rel="alternate" hreflang="en" href="{base}en/index.html"><link rel="icon" href="{assets}quadno-mark.svg" type="image/svg+xml">
 <link rel="preload" href="{assets}manrope.woff" as="font" type="font/woff" crossorigin><link rel="stylesheet" href="{assets}site.css"><script src="{assets}site.js" defer></script><script src="{assets}contact.js" defer></script></head>
 <body id="top"><a class="skip" href="#main">{t('İçeriğe geç','Skip to content')}</a>
 <header><div class="wrap head"><a class="home" href="#top" aria-label="{t('Quadno ana sayfa','Quadno home')}"><img src="{assets}quadno-word.svg" width="112" height="35" alt="quadno"></a>
@@ -60,25 +60,25 @@ def page(en):
 <a class="nav-contact" href="#contact">{t('İletişim','Contact')} {DIAGONAL}</a><button class="menu" id="menu" type="button" aria-label="{t('Menü','Menu')}" aria-controls="nav" aria-expanded="false"><span></span><span></span></button></div></header>
 <main id="main">
 <section class="hero" aria-labelledby="hero-title"><picture><source media="(max-width:620px)" srcset="{assets}resort-mobile.webp"><img src="{assets}resort.webp" width="1700" height="950" alt="" fetchpriority="high"></picture><div class="hero-shade"></div><div class="wrap hero-content">
-  <div class="hero-copy"><div class="hero-kicker"><span></span>{t('KONAKLAMA TEKNOLOJİLERİ','HOSPITALITY TECHNOLOGY')}</div>
+  <div class="hero-copy"><div class="hero-kicker"><span></span>{t('QUBI AI · OTEL ANALİZİ','QUBI AI · HOTEL ANALYTICS')}</div>
   <h1 id="hero-title">{t('Otelinizde bugün','What changed at')}<br><em>{t('ne değişti?','your hotel today?')}</em></h1>
-  <p>{t('QUBI ile doluluğu, oda gelirini ve satış kanallarını birlikte inceleyin. Değişimin hangi otelden, hangi günden geldiğini görün.','Explore occupancy, room revenue and sales channels with QUBI. See which property and which day drove the change.')}</p>
-  <div class="hero-actions"><a class="btn primary" href="#platform">{PLAY} {t('İnteraktif demoyu aç','Try the interactive demo')}</a><a class="hero-link" href="#products">{t('Ürünlerimiz','Our products')} {ARROW}</a></div></div>
+  <p>{t('QUBI AI ile haftanın en yüksek gelirli gününü bulun. Oteli veya haftayı değiştirip yanıtın hangi rakamlara dayandığını görün.','Find the strongest revenue day with QUBI AI. Switch hotels or weeks to see the numbers behind the answer.')}</p>
+  <div class="hero-actions"><a class="btn primary" data-open-ai href="#platform">{PLAY} {t('QUBI AI’ı deneyin','Try QUBI AI')}</a><a class="hero-link" href="#products">{t('Ürünlerimiz','Our products')} {ARROW}</a></div></div>
   <div class="hero-stat" aria-label="{t('Örnek portföy göstergesi','Sample portfolio indicator')}"><div><span class="mini-dot"></span>{t('ÖRNEK PORTFÖY','SAMPLE PORTFOLIO')}</div><p>{t('Haftalık doluluk','Weekly occupancy')}</p><div class="hero-stat-value"><b id="hero-value">{t("%81,6","81.6%")}</b><svg viewBox="0 0 112 39" aria-hidden="true"><path id="hero-line" d="M2 32L19 28 37 30 55 20 73 22 91 9 109 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/></svg></div><small id="hero-delta">{t("+4,5 puan · önceki haftaya göre","+4.5 pp · vs previous week")}</small></div>
   <div class="hero-foot"><span>QUADNO <i></i> HOSPITALITY INTELLIGENCE</span><a href="#platform" aria-label="{t('Platforma ilerle','Go to platform')}">↓</a></div>
 </div></section>
-<section class="workspace section wrap" id="platform"><div class="section-lead"><div><div class="kicker"><b>01</b><i></i>{t('QUBI PLATFORMU','QUBI PLATFORM')}</div><h2>{t('Bir otel portföyünü keşfedin.','Explore a hotel portfolio.')}</h2></div>
+<section class="workspace section wrap" id="platform"><div class="section-lead"><div><div class="kicker"><b>01</b><i></i>{t('QUBI PLATFORMU','QUBI PLATFORM')}</div><h2>{t('Bu hafta gelir nasıl değişti?','How did revenue change this week?')}</h2></div>
 <p>{t('Bir otel ve hafta seçin. Göstergeler arasından seçim yaparak günlük sonuçları karşılaştırın veya QUBI AI’a örnek bir soru sorun.','Choose a property and a week. Select a metric to compare daily results, or ask QUBI AI a sample question.')}</p></div>
 <div class="console" id="console"><div class="console-bar"><div class="console-brand">{WAVE}<strong>QUBI</strong><i></i><span>{t('Yönetim merkezi','Management workspace')}</span></div><span class="sample-badge"><i></i>{t('Örnek veri','Sample data')}</span></div>
-<div class="toolbar"><div class="modes" role="group" aria-label="{t('Görünüm','View')}"><button type="button" data-mode="dashboard" aria-pressed="true"><span aria-hidden="true">▦</span>{t('Yönetim panosu','Dashboard')}</button><button type="button" data-mode="ai" aria-pressed="false"><span aria-hidden="true">✧</span>QUBI AI</button></div>
+<div class="toolbar"><div class="modes" role="group" aria-label="{t('Görünüm','View')}"><button type="button" data-mode="dashboard" aria-pressed="false"><span aria-hidden="true">▦</span>{t('Yönetim panosu','Dashboard')}</button><button type="button" data-mode="ai" aria-pressed="true"><span aria-hidden="true">✧</span>QUBI AI</button></div>
 <div class="filters"><label>{t('Otel','Property')}<select id="property"><option value="all">{t('Tüm oteller','All properties')}</option><option value="coast">{t('Sahil Oteli','Coastal Hotel')}</option><option value="city">{t('Şehir Oteli','City Hotel')}</option></select></label>
 <label>{t('Dönem','Period')}<select id="week"><option value="2">{t('19–25 Ekim','19–25 Oct')}</option><option value="1">{t('12–18 Ekim','12–18 Oct')}</option></select></label></div></div>
-<div id="dash-body"><div class="metrics" role="group" aria-label="{t('Grafik göstergesi','Chart metric')}">
+<div id="dash-body" hidden><div class="metrics" role="group" aria-label="{t('Grafik göstergesi','Chart metric')}">
 {''.join(f'<button type="button" class="metric" data-metric="{k}" aria-pressed="{str(k=="occ").lower()}"><span class="metric-name">{t(tr,eng)}</span><strong data-value>—</strong><small data-change>—</small></button>' for k,tr,eng in [('occ','Oda doluluğu','Occupancy'),('rev','Oda geliri','Room revenue'),('adr','Ortalama oda fiyatı','Average daily rate')])}
 </div><div class="dash-lower"><div class="trend"><div class="chart-title"><h3 id="chart-title">{t('Günlük doluluk','Daily occupancy')}</h3><div class="legend"><span>{t('Seçili hafta','Selected week')}</span><span>{t('Önceki hafta','Previous week')}</span></div></div>
 <div id="chart" class="chart" role="img"></div><details class="values"><summary>{t('Günlük değerleri göster','Show daily values')}</summary><div id="day-table"></div></details></div>
 <div class="channels"><h3>{t('Satış kanalları','Sales channels')}</h3><p>{t('Satılan oda gecesindeki pay','Share of room nights sold')}</p><div id="channel-bars"></div></div></div></div>
-<div id="ai-body" hidden><div class="ai-questions"><div class="kicker">QUBI AI</div><h3>{t('Yönetim soruları','Management questions')}</h3><p>{t('Seçtiğiniz dönem ve otel üzerinden ilerleyin.','Explore your selected period and property.')}</p><div id="prompts"></div></div><div class="ai-answer" aria-live="polite" id="ai-answer"></div></div>
+<div id="ai-body"><div class="ai-questions"><div class="kicker">QUBI AI</div><h3>{t('Yönetim soruları','Management questions')}</h3><p>{t('Seçtiğiniz dönem ve otel üzerinden ilerleyin.','Explore your selected period and property.')}</p><div id="prompts"></div></div><div class="ai-answer" aria-live="polite" id="ai-answer"></div></div>
 <div class="console-foot"><span class="mini-dot"></span>{t('Demo ortamı · Kurgusal veriler · Ekim 2026','Demo workspace · Fictional data · October 2026')}</div><noscript><p>{t('Etkileşimli demo için JavaScript’i etkinleştirin.','Enable JavaScript to use the interactive demo.')}</p></noscript></div>
 </section>
 <section class="products-section" id="products"><div class="wrap section"><div class="section-lead"><div><div class="kicker"><b>02</b><i></i>{t('ÜRÜN AİLESİ','PRODUCT SUITE')}</div><h2>{t('Tasarım, analiz ve operasyon.','Design, analysis and operations.')}</h2></div><p>{t('Raporu hazırlayan analistten onu sabah toplantısında kullanan yöneticiye, her rol için farklı bir araç.','From the analyst building a report to the manager using it at a morning briefing, each role has a different tool.')}</p></div><div class="cards">{''.join(cards)}</div></div></section>
@@ -103,7 +103,7 @@ def page(en):
 <button type="submit" class="btn primary" id="enquiry-submit" disabled><span>{t('Gönder','Send message')}</span>{ARROW}</button>
 <noscript><p>{t('Form için JavaScript’i etkinleştirin veya doğrudan e-posta gönderin.','Enable JavaScript to use the form, or email us directly.')}</p></noscript>
 </form></div></section>
-</main><footer><div class="wrap footer-inner"><img src="{assets}quadno.svg" alt="Quadno" width="42" height="42"><span>© 2026 Quadno Teknoloji A.Ş.</span><a href="#top">{t('Başa dön','Back to top')} ↑</a></div></footer>
+</main><footer><div class="wrap footer-inner"><img src="{assets}quadno-mark.svg" alt="Quadno" width="42" height="42"><span>© 2026 Quadno Teknoloji A.Ş.</span><a href="#top">{t('Başa dön','Back to top')} ↑</a></div></footer>
 {''.join(dialogs)}</body></html>'''
 
 for en in (False,True):

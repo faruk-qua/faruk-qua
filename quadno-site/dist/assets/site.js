@@ -9,7 +9,7 @@ const percent = value => pctFormat.format(value / 100);
 const money = value => english ? '₺' + num.format(value) : num.format(value) + ' ₺';
 const total = values => values.reduce((a, b) => a + b, 0);
 const byId = id => document.getElementById(id);
-const state = {property:'all', week:2, metric:'occ', mode:'dashboard', question:0};
+const state = {property:'all', week:2, metric:'occ', mode:'ai', question:3};
 
 // Fictional daily room sales, realised rates and channel mix for three consecutive weeks.
 const properties = [
@@ -37,7 +37,8 @@ const weekDays = Array.from({length:7}, (_,i) => new Intl.DateTimeFormat(locale,
 const questions = [
   translate('Gelir en çok hangi gün elde edildi?','Which day earned the most room revenue?'),
   translate('En çok oda gecesini hangi kanal sağladı?','Which channel supplied the most room nights?'),
-  translate('Doluluk geçen haftaya göre nasıl değişti?','How did occupancy change from the previous week?')
+  translate('Doluluk geçen haftaya göre nasıl değişti?','How did occupancy change from the previous week?'),
+  translate('Gelir değişiminde fiyat mı, satış adedi mi etkili?', 'Did rates or room nights drive the revenue change?')
 ];
 
 function summarise(propertyId, week) {
@@ -113,6 +114,12 @@ function renderAnswer(current,previous) {
     heading=channels[index];
     description=translate('Bu kanal '+num.format(current.sold)+' oda gecesinin '+num.format(current.mix[index])+' tanesini sağladı. Seçtiğiniz haftada en yüksek pay bu kanalda.', 'This channel accounted for '+num.format(current.mix[index])+' of '+num.format(current.sold)+' room nights, the largest share in the selected week.');
     value=share; evidence=translate('Oda gecesi içindeki pay','Share of room nights');
+  } else if(key===3) {
+    const volume = (current.sold - previous.sold) * previous.adr;
+    const rate = current.sold * (current.adr - previous.adr);
+    heading = Math.abs(rate) >= Math.abs(volume) ? translate('Fiyat etkisi daha büyük','Rates had the larger impact') : translate('Satış adedi etkisi daha büyük','Room nights had the larger impact');
+    description = translate('Önceki haftanın fiyatıyla, satılan oda sayısındaki değişimin etkisi '+money(volume)+'. Seçili haftanın satış adedinde fiyat değişiminin etkisi '+money(rate)+'.','At last week’s rate, the change in room nights contributed '+money(volume)+'. At this week’s volume, the change in rate contributed '+money(rate)+'.');
+    value = money(current.rev - previous.rev); evidence = translate('Oda gelirinde net değişim','Net change in room revenue');
   } else {
     heading=translate('Haftalık doluluk karşılaştırması','Weekly occupancy comparison');
     description=translate('Önceki haftanın doluluğu '+percent(previous.occ)+', seçili haftanın doluluğu '+percent(current.occ)+'. Karşılaştırma aynı otel seçimine göre hesaplandı.','Occupancy was '+percent(previous.occ)+' in the previous week and '+percent(current.occ)+' in the selected week, using the same property selection.');
@@ -174,6 +181,7 @@ document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',(
 document.querySelectorAll('[data-metric]').forEach(b=>b.addEventListener('click',()=>{state.metric=b.dataset.metric;render();}));
 byId('property').addEventListener('change',e=>{state.property=e.target.value;render();});
 byId('week').addEventListener('change',e=>{state.week=Number(e.target.value);render();});
+document.querySelectorAll('[data-open-ai], nav a[href="#platform"]').forEach(link => link.addEventListener('click', () => { state.mode = 'ai'; render(); }));
 renderHero();render();
 new ResizeObserver(entries=>{
   if(entries[0].contentRect.width>0 && state.mode==='dashboard')renderChart(summarise(state.property,state.week),summarise(state.property,state.week-1));
