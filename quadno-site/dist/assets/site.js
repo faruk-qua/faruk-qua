@@ -186,3 +186,33 @@ renderHero();render();
 new ResizeObserver(entries=>{
   if(entries[0].contentRect.width>0 && state.mode==='dashboard')renderChart(summarise(state.property,state.week),summarise(state.property,state.week-1));
 }).observe(byId('chart'));
+
+const gallery = document.querySelector('.hero-gallery');
+const controls = document.querySelector('.gallery-controls');
+const motion = matchMedia('(prefers-reduced-motion: reduce)');
+const slideNames = [translate('Otel manzarası','Resort view'), translate('Otel lobisi','Hotel lobby')];
+let slide = 0;
+let rotating = !motion.matches;
+let timer;
+function showSlide(step) {
+  slide = (slide + step + slideNames.length) % slideNames.length;
+  gallery.style.transform = 'translateX(-' + slide * 100 + '%)';
+  byId('slide-caption').textContent = '0' + (slide + 1) + ' / 02 · ' + slideNames[slide];
+}
+function syncRotation() {
+  clearInterval(timer);
+  const button = byId('slide-play');
+  button.textContent = rotating ? 'Ⅱ' : '▷';
+  button.setAttribute('aria-label', rotating ? translate('Slaytları duraklat','Pause slideshow') : translate('Slaytları oynat','Play slideshow'));
+  if (rotating && !document.hidden) timer = setInterval(() => showSlide(1), 6500);
+}
+controls.querySelectorAll('[data-slide]').forEach(button => button.addEventListener('click', () => {
+  rotating = false;
+  showSlide(Number(button.dataset.slide));
+  syncRotation();
+}));
+byId('slide-play').addEventListener('click', () => { rotating = !rotating; syncRotation(); });
+motion.addEventListener('change', () => { rotating = !motion.matches; syncRotation(); });
+document.addEventListener('visibilitychange', syncRotation);
+controls.hidden = false;
+syncRotation();
