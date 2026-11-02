@@ -190,14 +190,13 @@ new ResizeObserver(entries=>{
 const gallery = document.querySelector('.hero-gallery');
 const controls = document.querySelector('.gallery-controls');
 const motion = matchMedia('(prefers-reduced-motion: reduce)');
-const slideNames = [translate('Otel manzarası','Resort view'), translate('Otel lobisi','Hotel lobby')];
+const slideCount = gallery.children.length;
 let slide = 0;
 let rotating = !motion.matches;
 let timer;
 function showSlide(step) {
-  slide = (slide + step + slideNames.length) % slideNames.length;
+  slide = (slide + step + slideCount) % slideCount;
   gallery.style.transform = 'translateX(-' + slide * 100 + '%)';
-  byId('slide-caption').textContent = '0' + (slide + 1) + ' / 02 · ' + slideNames[slide];
 }
 function syncRotation() {
   clearInterval(timer);
