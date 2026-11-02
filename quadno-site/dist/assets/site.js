@@ -101,6 +101,45 @@ function renderChart(current, previous) {
   byId('day-table').innerHTML='<table><thead><tr><th>'+translate('Gün','Day')+'</th><th>'+translate('Seçili hafta','Selected week')+'</th><th>'+translate('Önceki hafta','Previous week')+'</th></tr></thead><tbody>'+weekDays.map((d,i)=>'<tr><th scope="row">'+d+'</th><td>'+metrics[key].format(data[i])+'</td><td>'+metrics[key].format(baseline[i])+'</td></tr>').join('')+'</tbody></table>';
 }
 
+function answerChart(key, current, previous) {
+  const x = i => 32 + i * 46;
+  const labels = weekDays.map((day,i) => `<text x="${x(i)}" y="109" text-anchor="middle">${day}</text>`).join('');
+  const svg = body => `<svg class="answer-plot" viewBox="0 0 340 116" aria-hidden="true">${body}</svg>`;
+  const legend = (color, label) => `<span><i style="background:${color}"></i>${label}</span>`;
+  let title, plot, detail;
+  if (key === 0) {
+    title = translate('Oda geliri · günlük dağılım','Room revenue by day');
+    const peak = Math.max(...current.days.map(d => d.rev));
+    plot = svg(current.days.map((d,i) => {
+      const height = 76 * d.rev / peak;
+      return `<rect x="${x(i)-12}" y="${90-height}" width="24" height="${height}" rx="3" fill="${d.rev===peak ? '#176e61' : '#9ecfc2'}"><title>${dayName(i)} · ${money(d.rev)}</title></rect>`;
+    }).join('') + labels);
+    detail = current.days.map((d,i) => dayName(i)+' · '+money(d.rev)).join(' / ');
+  } else if (key === 1) {
+    title = translate('Satılan oda gecelerinin payı','Share of room nights sold');
+    let start = 0;
+    const arcs = current.mix.map((v,i) => {
+      const end = start + v/current.sold*100;
+      const arc = colors[i]+' '+start+'% '+end+'%';
+      start = end;
+      return arc;
+    });
+    plot = `<div class="answer-mix"><div class="answer-ring" aria-hidden="true" style="background:conic-gradient(${arcs.join(',')})"></div><div class="answer-key">${channels.map((c,i)=>legend(colors[i],c+' · '+percent(100*current.mix[i]/current.sold))).join('')}</div></div>`;
+  } else if (key === 2) {
+    title = translate('Günlük doluluk · iki hafta','Daily occupancy over two weeks');
+    const line = (week,color,dash) => `<polyline points="${week.days.map((d,i)=>x(i)+','+(90-d.occ*.8)).join(' ')}" fill="none" stroke="${color}" stroke-width="3" stroke-dasharray="${dash}"/>`;
+    plot = svg([0,50,100].map(n=>`<text x="0" y="${94-n*.8}">${n}%</text><path d="M32 ${90-n*.8}h276" stroke="#d5e3de"/>`).join('')+line(previous,colors[1],'5 4')+line(current,colors[0],'none')+labels)
+      + '<div class="answer-key">'+legend(colors[0],translate('Seçili hafta','Selected week'))+legend(colors[1],translate('Önceki hafta','Previous week'))+'</div>';
+    detail = current.days.map((d,i)=>weekDays[i]+' · '+percent(d.occ)+' / '+percent(previous.days[i].occ)).join(' · ');
+  } else {
+    title = translate('Gelir değişimine katkı','Contributions to revenue change');
+    const impacts = [(current.sold-previous.sold)*previous.adr,current.sold*(current.adr-previous.adr)];
+    const scale = Math.max(1,...impacts.map(Math.abs));
+    plot = impacts.map((v,i)=>`<div class="answer-impact"><span>${i ? translate('Oda fiyatı','Room rate') : translate('Geceleme','Room nights')}</span><strong>${v>0?'+':''}${money(v)}</strong><div><i style="left:${v<0?50-50*Math.abs(v)/scale:50}%;width:${50*Math.abs(v)/scale}%;background:${v<0?'#ae624f':colors[0]}"></i></div></div>`).join('');
+  }
+  return `<figure class="answer-figure"><figcaption>${title}</figcaption>${plot}${detail ? '<details><summary>'+translate('Günlük değerler','Daily values')+'</summary>'+detail+'</details>' : ''}</figure>`;
+}
+
 function renderAnswer(current,previous) {
   const key=state.question;
   let heading, description, value, evidence;
@@ -125,7 +164,7 @@ function renderAnswer(current,previous) {
     description=translate('Önceki haftanın doluluğu '+percent(previous.occ)+', seçili haftanın doluluğu '+percent(current.occ)+'. Karşılaştırma aynı otel seçimine göre hesaplandı.','Occupancy was '+percent(previous.occ)+' in the previous week and '+percent(current.occ)+' in the selected week, using the same property selection.');
     value=changeText('occ',current.occ,previous.occ); evidence=translate('Haftalık değişim','Week-on-week change');
   }
-  byId('ai-answer').innerHTML='<div class="kicker">✧ &nbsp; QUBI AI / '+translate('ÖRNEK YANIT','SAMPLE ANSWER')+'</div><h3>'+heading+'</h3><p>'+description+'</p><div class="evidence"><strong>'+value+'</strong><span>'+evidence+'</span></div>';
+  byId('ai-answer').innerHTML='<div class="kicker">✧ &nbsp; QUBI AI / '+translate('ÖRNEK YANIT','SAMPLE ANSWER')+'</div><h3>'+heading+'</h3><p>'+description+'</p><div class="evidence"><strong>'+value+'</strong><span>'+evidence+'</span></div>'+answerChart(key,current,previous);
 }
 function render() {
   const current=summarise(state.property,state.week), previous=summarise(state.property,state.week-1);
