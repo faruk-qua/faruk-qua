@@ -191,19 +191,48 @@ const gallery = document.querySelector('.hero-gallery');
 const controls = document.querySelector('.gallery-controls');
 const motion = matchMedia('(prefers-reduced-motion: reduce)');
 const slideCount = gallery.children.length;
+const heroTitle = byId('hero-title');
+const heroDescription = document.querySelector('.hero-copy > p');
+const heroSlides = [
+  [heroTitle.firstChild.textContent, heroTitle.querySelector('em').textContent, heroDescription.textContent],
+  [
+    translate('Soruyu siz sorun.', 'Ask your question.'),
+    translate('Veri sizde kalsın.', 'Keep data local.'),
+    translate('“Ekimde hangi otelde daha fazla oda sattık?” QUBI AI sorunuzu kurumunuzdaki dil modeliyle yorumlar. Otel verileriniz bulut yapay zekâ servislerine gönderilmez.', '“Which hotel sold the most rooms in October?” QUBI AI interprets your question with a language model running in your own environment. Your hotel data stays off cloud AI services.')
+  ],
+  [
+    translate('Oda geliri', 'Room revenue'),
+    translate('neden arttı?', 'is up. Why?'),
+    translate('Daha çok oda mı sattınız, yoksa odaları daha yüksek fiyata mı sattınız? Satılan geceleme, ortalama oda fiyatı ve oda gelirini geçen yılın aynı dönemiyle karşılaştırın.', 'Did you sell more room nights, or did guests pay a higher rate? Compare room nights sold, average daily rate and room revenue with the same period last year.')
+  ],
+  [
+    translate('Misafirleriniz', 'Where do guests'),
+    translate('nereden geliyor?', 'book their stay?'),
+    translate('Doğrudan rezervasyonları ve acente satışlarını konaklama tarihine göre inceleyin. En çok geceleme getiren kanalla en yüksek oda fiyatını sağlayan kanalı yan yana görün.', 'Compare direct and agency bookings by stay date. See which channel fills the most room nights and which earns the highest average room rate.')
+  ],
+  [
+    translate('Tek grup.', 'One group.'),
+    translate('Farklı oteller.', 'Different hotels.'),
+    translate('Grubun doluluk ortalaması yükselirken hangi tesis geride kaldı? Aynı hafta için otellerin doluluk ve oda gelirlerini karşılaştırın, ardından ilgilendiğiniz tesisin günlük sonuçlarına inin.', 'Group occupancy is rising, but is every property keeping pace? Compare occupancy and room revenue across hotels for the same week, then explore daily results for one property.')
+  ]
+];
 let slide = 0;
 let rotating = !motion.matches;
 let timer;
 function showSlide(step) {
   slide = (slide + step + slideCount) % slideCount;
   gallery.style.transform = 'translateX(-' + slide * 100 + '%)';
+  const [opening, emphasis, description] = heroSlides[slide];
+  heroTitle.firstChild.textContent = opening;
+  heroTitle.querySelector('em').textContent = emphasis;
+  heroDescription.textContent = description;
 }
 function syncRotation() {
   clearInterval(timer);
   const button = byId('slide-play');
   button.textContent = rotating ? 'Ⅱ' : '▷';
   button.setAttribute('aria-label', rotating ? translate('Slaytları duraklat','Pause slideshow') : translate('Slaytları oynat','Play slideshow'));
-  if (rotating && !document.hidden) timer = setInterval(() => showSlide(1), 6500);
+  if (rotating && !document.hidden) timer = setInterval(() => showSlide(1), 10000);
 }
 controls.querySelectorAll('[data-slide]').forEach(button => button.addEventListener('click', () => {
   rotating = false;
